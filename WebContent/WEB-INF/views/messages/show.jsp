@@ -7,11 +7,26 @@
 			<c:when test="${message != null}">
 				<H2>ID: ${message.id}'s message detail page</H2>
 
-				<p>Title: <c:out value="${message.title}" /></p>
-				<p>Message: <c:out value="${message.content}" /></p>
-				<p>Date Created: <fmt:formatDate value="${message.created_at}" pattern="MM/dd/yyyy HH:mm:ss" /></p>
-				<p>Date Updated: <fmt:formatDate value="${message.updated_at}" pattern="MM/dd/yyyy HH:mm:ss" /></p>
-
+				<table>
+					<tbody>
+						<tr>
+							<th>Title</th>
+							<td><c:out value="${message.title}" /></td>
+						</tr>
+						<tr>
+							<th>Message</th>
+							<td><c:out value="${message.content}" /></td>
+						</tr>
+						<tr>
+							<th>Date Created</th>
+							<td><fmt:formatDate value="${message.created_at}" pattern="MM/dd/yyyy HH:mm:ss" /></td>
+						</tr>
+						<tr>
+							<th>Date Updated</th>
+							<td><fmt:formatDate value="${message.updated_at}" pattern="MM/dd/yyyy HH:mm:ss" /></td>
+						</tr>
+					</tbody>
+				</table>
 				<p><a href="${pageContext.request.contextPath}/index">Back to the list</a></p>
 				<p><a href="${pageContext.request.contextPath}/edit?id=${message.id}">Edit this message</a></p>
 			</c:when>
