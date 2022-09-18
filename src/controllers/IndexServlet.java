@@ -35,11 +35,26 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EntityManager em = DBUtil.createEntityManager();
 
-		List<Message> messages = em.createNamedQuery("getAllMessages", Message.class).getResultList();
+		//Acquire number of page for open(Default: page 1)
+		int page = 1;
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+		}catch(NumberFormatException e) {}
+
+		//Get messages by specifying maximum number and start position
+		List<Message> messages = em.createNamedQuery("getAllMessages", Message.class)
+			 .setFirstResult(16 * (page - 1))
+			 .setMaxResults(16)
+			 .getResultList();
+
+		//Acquire number of all
+		long messages_count = (long)em.createNamedQuery("getMessagesCount", Long.class).getSingleResult();
 
 		em.close();
 
 		request.setAttribute("messages", messages);
+		request.setAttribute("messages_count", messages_count);
+		request.setAttribute("page", page);
 
 		//If set flush message at sessions cope
 		//then save it to request scope (remove from session scope)
