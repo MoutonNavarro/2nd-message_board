@@ -41,6 +41,13 @@ public class IndexServlet extends HttpServlet {
 
 		request.setAttribute("messages", messages);
 
+		//If set flush message at sessions cope
+		//then save it to request scope (remove from session scope)
+		if (request.getSession().getAttribute("flush") != null ){
+			request.setAttribute("flush", request.getSession().getAttribute("flush"));
+			request.getSession().removeAttribute("flush");
+		}
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/messages/index.jsp");
 		rd.forward(request, response);
 

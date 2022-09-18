@@ -16,13 +16,13 @@ import utils.DBUtil;
  * Servlet implementation class SestroyServlet
  */
 @WebServlet("/destroy")
-public class SestroyServlet extends HttpServlet {
+public class DestroyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SestroyServlet() {
+    public DestroyServlet() {
         super();
     }
 
@@ -41,6 +41,7 @@ public class SestroyServlet extends HttpServlet {
 			em.getTransaction().begin();
 			em.remove(m);
 			em.getTransaction().commit();
+			request.getSession().setAttribute("flush", "Remove successfully.");
 			em.close();
 
 			//Remove obsolete data on session scope
